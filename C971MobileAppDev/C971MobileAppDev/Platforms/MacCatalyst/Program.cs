@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace c971_mobile_application_development_using_c_sharp
+namespace C971MobileAppDev
 {
     public class Program
     {

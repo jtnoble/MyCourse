@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace c971_mobile_application_development_using_c_sharp
+namespace C971MobileAppDev
 {
     [Application]
     public class MainApplication : MauiApplication

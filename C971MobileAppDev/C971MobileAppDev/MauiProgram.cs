@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace c971_mobile_application_development_using_c_sharp
+namespace C971MobileAppDev
 {
     public static class MauiProgram
     {

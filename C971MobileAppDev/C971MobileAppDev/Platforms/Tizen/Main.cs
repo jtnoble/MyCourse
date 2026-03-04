@@ -2,7 +2,7 @@ using System;
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 
-namespace c971_mobile_application_development_using_c_sharp
+namespace C971MobileAppDev
 {
     internal class Program : MauiApplication
     {
