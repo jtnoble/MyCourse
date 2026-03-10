@@ -2,58 +2,67 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="C971MobileAppDev.MainPage"
-             x:Name="ThisPage">
-
-    <Grid RowDefinitions="Auto, Auto, *, Auto"
+             x:Name="ThisPage"
+             >
+    
+    <NavigationPage.TitleView>
+        <Grid HorizontalOptions="Fill">
+            <Label Text="MyCourse"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    TextColor="Black"
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"
+                    />
+        </Grid>
+    </NavigationPage.TitleView>
+        
+    <Grid RowDefinitions="Auto, *"
           Padding="10"
           RowSpacing="10">
-        
+
         <Grid Grid.Row="0"
-              ColumnDefinitions="Auto, *, Auto"
-              >
-            
-            <Button Text="←"
-                    TextColor="Black"
-                    BackgroundColor="Transparent"
-                    FontSize="20"
-                    />
-            
-            <Label Text="MyCourse"
-                   Grid.Column="1"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center"
-                   FontSize="20"
-                   FontAttributes="Bold"
-                   />
-        
-        </Grid>
-
-        <Grid Grid.Row="1"
-              ColumnDefinitions="Auto, *, Auto"
+              ColumnDefinitions="*, *, *"
+              VerticalOptions="Center"
               >
 
-            <Button Text="Back"
+            <Button Text="{Binding PreviousTermText}"
                     TextColor="Black"
+                    Grid.Column="0"
                     BackgroundColor="Transparent"
+                    Clicked="PreviousTermClicked"
                     />
 
-            <Label Text="Term 1"
-                   Grid.Column="1"
-                   HorizontalOptions="Center"
-                   FontAttributes="Bold"
+            <Button Text="{Binding CurrentTerm.Name}"
+                    Grid.Column="1"
+                    HorizontalOptions="Center"
+                    FontAttributes="Bold"
+                    Clicked="EditTermClicked"
                    />
 
-            <Button Text="Next"
+            <Button Text="{Binding NextTermText}"
                     TextColor="Black"
                     Grid.Column="2"
                     Background="Transparent"
+                    Clicked="NextTermClicked"
                     />
 
         </Grid>
 
-        <CollectionView Grid.Row="2"
+        <CollectionView Grid.Row="1"
                         ItemsSource="{Binding Courses}"
+                        SelectionMode="None"
                         >
+            <CollectionView.Footer>
+
+                <Button Text="Add Class"
+                        HeightRequest="50"
+                        HorizontalOptions="Fill"
+                        Clicked="AddCourseClicked"
+                        IsEnabled="{Binding CanAddCourse}"
+                        />
+
+            </CollectionView.Footer>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -61,7 +70,8 @@
                     <Frame BorderColor="Black"
                            Padding="10"
                            Margin="0, 5"
-                           CornerRadius="3">
+                           CornerRadius="10"
+                           HasShadow="True">
 
                         <VerticalStackLayout Spacing="10">
 
@@ -86,12 +96,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <Button Grid.Row="3"
-                Text="Add Class"
-                HeightRequest="50"
-                HorizontalOptions="Fill"
-                Clicked="AddCourseClicked"
-                />
+        
 
     </Grid>
 

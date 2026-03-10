@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="C971MobileAppDev.Resources.Views.EditTermPage"
+             Title="EditTermPage">
+    <NavigationPage.TitleView>
+        <Grid HorizontalOptions="Fill" >
+            <Label Text="Term Page"
+                   Margin="-70, 0, 0, 0"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    TextColor="Black"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    />
+        </Grid>
+    </NavigationPage.TitleView>
+
+    <Grid ColumnDefinitions="*"
+          RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+          Padding="10"
+          RowSpacing="10"
+          ColumnSpacing="10">
+
+        <Label Text="Term Title:"
+               TextColor="Black"
+               Grid.Row="0"
+               BackgroundColor="Transparent"
+               />
+        <Entry Text="{Binding Name, Mode=TwoWay}"
+               Placeholder="Term Name"
+               Grid.Row="1"
+               HorizontalOptions="Fill"
+               />
+
+        <Label Text="Start Date:"
+               TextColor="Black"
+               VerticalOptions="Center"
+               Grid.Row="2"
+               BackgroundColor="Transparent"
+               />
+        <DatePicker Date="{Binding StartDate, Mode=TwoWay}"
+                    Grid.Row="3"
+                    HorizontalOptions="Fill"
+                    
+                    />
+
+        <Label Text="End Date:"
+               TextColor="Black"
+               VerticalOptions="Center"
+               Grid.Row="4"
+               BackgroundColor="Transparent"
+               />
+        <DatePicker Date="{Binding EndDate, Mode=TwoWay}"
+                    Grid.Row="5"
+                    HorizontalOptions="Fill"
+                    />
+
+        <Button Text="Save"
+                TextColor="White"
+                Grid.Row="6"
+                HorizontalOptions="Center"
+                WidthRequest="200"
+                Margin="0, 20, 0, 0"
+                Clicked="SaveTermClicked"
+                />
+
+        <Button Text="Delete"
+                TextColor="White"
+                BackgroundColor="MediumVioletRed"
+                Grid.Row="7"
+                HorizontalOptions="Center"
+                WidthRequest="200"
+                Margin="0, 10, 0, 0"
+                Clicked="DeleteTermClicked"
+                IsVisible="{Binding DeleteVisible}"
+                />
+    </Grid>
+</ContentPage>

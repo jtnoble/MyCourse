@@ -13,6 +13,8 @@ namespace C971MobileAppDev.Resources.Models
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string Name { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         [Ignore]
         public ObservableCollection<Course> Courses { get; set; }
