@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="C971MobileAppDev.Resources.Views.CourseDetailsPage"
+             Title="Course Details">
+
+    <ScrollView>
+
+        <Grid Padding="15"
+              RowSpacing="12"
+              ColumnDefinitions="*"
+              RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+              >
+
+            <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+
+                <Label Text="{Binding CurrentCourse.ClassName}"
+                       FontSize="32"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Start"
+                       Grid.Column="0"
+                       />
+
+                <Button Text="Edit"
+                        Grid.Column="1"
+                        Clicked="EditCourseClicked"
+                        />
+            </Grid>
+
+            <Label Text="{Binding CurrentCourse.Status}"
+                   Grid.Row="1"
+                   HorizontalOptions="Center"
+                   />
+
+            <Label Grid.Row="2"
+                   HorizontalOptions="Center"
+                   >
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{Binding CurrentCourse.StartDate, StringFormat='{0:d}'}"/>
+                        <Span Text=" - "/>
+                        <Span Text="{Binding CurrentCourse.EndDate, StringFormat='{0:d}'}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Label Text="Assessments:"
+                   FontAttributes="Bold"
+                   Grid.Row="3"
+                   />
+
+            <CollectionView Grid.Row="4"
+                            ItemsSource="{Binding Assessments}"
+                            >
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+
+                        <Frame BorderColor="Gray"
+                               Padding="8"
+                               Margin="0,5"
+                               >
+
+                            <Grid RowDefinitions="Auto,Auto"
+                                  ColumnDefinitions="*,*"
+                                  >
+
+                                <Label Text="{Binding Name}"
+                                       Grid.Row="0"
+                                       Grid.ColumnSpan="2"
+                                       FontAttributes="Bold"
+                                       />
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Text="{Binding DueDate, StringFormat='Start: {0:d}'}"
+                                       />
+
+                                <Label Grid.Row="1"
+                                       Grid.Column="1"
+                                       Text="{Binding Type}"
+                                       />
+
+                            </Grid>
+
+                        </Frame>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+            <Button Text="Add Assessment"
+                    Grid.Row="5"
+                    HorizontalOptions="Center"
+                    Clicked="AddAssessmentClicked"
+                    />
+
+            <Label Text="Notes:"
+                   Grid.Row="6"
+                   />
+
+            <Editor Grid.Row="7"
+                    HeightRequest="120"
+                    Text="{Binding CurrentCourse.Notes, Mode=TwoWay}"
+                    />
+
+            <Label Grid.Row="8"
+                   HorizontalOptions="Center"
+                   >
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{Binding CurrentCourse.InstructorName}"/>
+                        <Span Text="&#10;"/>
+                        <Span Text="{Binding CurrentCourse.InstructorPhone}"/>
+                        <Span Text=" - "/>
+                        <Span Text="{Binding CurrentCourse.InstructorEmail}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+        </Grid>
+
+    </ScrollView>
+
+</ContentPage>

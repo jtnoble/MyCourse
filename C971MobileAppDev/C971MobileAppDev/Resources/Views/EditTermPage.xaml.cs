@@ -15,7 +15,7 @@ public partial class EditTermPage : ContentPage
 		{
 			Name = "New Term",
 			StartDate = DateTime.Now,
-			EndDate = DateTime.Now.AddMonths(1)
+			EndDate = DateTime.Now.AddMonths(6)
 		};
 		DeleteVisible = term != null;
 

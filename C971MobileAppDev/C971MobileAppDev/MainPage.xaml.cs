@@ -11,12 +11,12 @@ namespace C971MobileAppDev
         DatabaseService _databaseService;
         public ObservableCollection<Term> Terms { get; set; } = new();
         public ObservableCollection<Course> Courses { get; set; } = new();
-        
+
         private const int MAX_COURSES = 6;
         public bool CanAddCourse => Courses.Count < MAX_COURSES;
 
         private int _currentTermIndex = 0;
-        public Term CurrentTerm => 
+        public Term CurrentTerm =>
             Terms.Count > 0 && _currentTermIndex < Terms.Count
             ? Terms[_currentTermIndex]
             : null;
@@ -37,6 +37,12 @@ namespace C971MobileAppDev
             InitDatabase();
         }
 
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await LoadCourses();
+        }
+
         async void InitDatabase()
         {
             await _databaseService.Init();
@@ -51,7 +57,7 @@ namespace C971MobileAppDev
             Terms.Clear();
             foreach (var term in terms)
             {
-                 Terms.Add(term);
+                Terms.Add(term);
             }
             if (_currentTermIndex >= Terms.Count)
             {
@@ -152,7 +158,23 @@ namespace C971MobileAppDev
         }
         async void AddCourseClicked(object sender, EventArgs e)
         {
-            await AddCourse();
+            var page = new CreateCoursePage(CurrentTerm.Id);
+
+            page.OnSave = async (newCourse) =>
+            {
+                await _databaseService.SaveCourseAsync(newCourse);
+                await LoadCourses();
+            };
+
+            await Navigation.PushAsync(page);
+        }
+
+        async void ViewCourseClicked(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            var course = button?.BindingContext as Course;
+            var coursePage = new CourseDetailsPage(course);
+            await Navigation.PushAsync(coursePage);
         }
     }
 }

@@ -2,20 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="C971MobileAppDev.Resources.Views.EditTermPage"
-             Title="EditTermPage">
-    <NavigationPage.TitleView>
-        <Grid HorizontalOptions="Fill" >
-            <Label Text="Term Page"
-                   Margin="-70, 0, 0, 0"
-                    FontSize="20"
-                    FontAttributes="Bold"
-                    TextColor="Black"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    HorizontalTextAlignment="Center"
-                    />
-        </Grid>
-    </NavigationPage.TitleView>
+             Title="Term">
 
     <Grid ColumnDefinitions="*"
           RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
@@ -28,7 +15,7 @@
                Grid.Row="0"
                BackgroundColor="Transparent"
                />
-        <Entry Text="{Binding Name, Mode=TwoWay}"
+        <Entry Text="{Binding CurrentTerm.Name, Mode=TwoWay}"
                Placeholder="Term Name"
                Grid.Row="1"
                HorizontalOptions="Fill"
@@ -40,7 +27,7 @@
                Grid.Row="2"
                BackgroundColor="Transparent"
                />
-        <DatePicker Date="{Binding StartDate, Mode=TwoWay}"
+        <DatePicker Date="{Binding CurrentTerm.StartDate, Mode=TwoWay}"
                     Grid.Row="3"
                     HorizontalOptions="Fill"
                     
@@ -52,7 +39,7 @@
                Grid.Row="4"
                BackgroundColor="Transparent"
                />
-        <DatePicker Date="{Binding EndDate, Mode=TwoWay}"
+        <DatePicker Date="{Binding CurrentTerm.EndDate, Mode=TwoWay}"
                     Grid.Row="5"
                     HorizontalOptions="Fill"
                     />

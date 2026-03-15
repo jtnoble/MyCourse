@@ -15,6 +15,12 @@ namespace C971MobileAppDev.Resources.Models
         public string ClassName { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public string InstructorName { get; set; }
+        public string InstructorEmail { get; set; }
+        public string InstructorPhone { get; set; }
+        public string Notes { get; set; }
+        public string Status { get; set; }
+        public bool NotificationsEnabled { get; set; }
 
         [Ignore]
         public string DateRange => $"{StartDate} - {EndDate}";

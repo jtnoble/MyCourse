@@ -81,14 +81,22 @@
                                    FontAttributes="Bold"
                                    />
 
-                            <Label Text="{Binding DateRange}"
-                                   FontSize="14"
+                            <Label FontSize="14"
                                    HorizontalOptions="Center"
-                                   />
+                                   >
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding StartDate, StringFormat='{0:d}'}"/>
+                                        <Span Text=" - "/>
+                                        <Span Text="{Binding EndDate, StringFormat='{0:d}'}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
 
                             <Button Text="View Class"
-                                   HorizontalOptions="Center"
-                                   WidthRequest="150"
+                                    HorizontalOptions="Center"
+                                    WidthRequest="150"
+                                    Clicked="ViewCourseClicked"
                                    />
                         </VerticalStackLayout>
                     </Frame>

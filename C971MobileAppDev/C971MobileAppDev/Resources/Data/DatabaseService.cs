@@ -20,6 +20,7 @@ namespace C971MobileAppDev.Resources.Data
             _database = new SQLiteAsyncConnection(databasePath);
             await _database.CreateTableAsync<Term>();
             await _database.CreateTableAsync<Course>();
+            await _database.CreateTableAsync<Assessment>();
         }
 
         public async Task<List<Term>> GetTermsAsync()
@@ -64,6 +65,24 @@ namespace C971MobileAppDev.Resources.Data
         {
             await Init();
             await _database.DeleteAsync(term);
+        }
+
+        public async Task<List<Assessment>> GetAssessmentsAsync(int courseId)
+        {
+            await Init();
+            return await _database.Table<Assessment>()
+                .Where(assessment => assessment.CourseId == courseId)
+                .OrderBy(assessment => assessment.DueDate)
+                .ToListAsync();
+        }
+
+        public async Task SaveAssessmentAsync(Assessment assessment)
+        {
+            await Init();
+            if (assessment.Id != 0)
+                await _database.UpdateAsync(assessment);
+            else
+                await _database.InsertAsync(assessment);
         }
     }
 }
