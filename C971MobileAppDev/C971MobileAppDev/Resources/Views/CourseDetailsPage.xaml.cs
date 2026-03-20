@@ -9,6 +9,12 @@ public partial class CourseDetailsPage : ContentPage
 	DatabaseService _databaseService;
 	public Course CurrentCourse { get; set; }
 	public ObservableCollection<Assessment> Assessments { get; set; } = new();
+
+	public bool HasObjectiveAssessment { get; set; }
+	public bool HasPerformanceAssessment { get; set; }
+	public bool CanAddObjective => !HasObjectiveAssessment;
+	public bool CanAddPerformance => !HasPerformanceAssessment;
+
     public CourseDetailsPage(Course course)
 	{
 		InitializeComponent();
@@ -26,6 +32,13 @@ public partial class CourseDetailsPage : ContentPage
 		{
 			Assessments.Add(assessment);
 		}
+
+		HasObjectiveAssessment = Assessments.Any(a => a.Type == "Objective");
+		HasPerformanceAssessment = Assessments.Any(a => a.Type == "Performance");
+		OnPropertyChanged(nameof(HasObjectiveAssessment));
+		OnPropertyChanged(nameof(HasPerformanceAssessment));
+		OnPropertyChanged(nameof(CanAddObjective));
+		OnPropertyChanged(nameof(CanAddPerformance));
     }
 
 	async void EditCourseClicked(object sender, EventArgs e)
@@ -46,9 +59,9 @@ public partial class CourseDetailsPage : ContentPage
 		await Navigation.PushAsync(editPage);
     }
 
-	async void AddAssessmentClicked(object sender, EventArgs e)
+	async Task AddAssessment(Assessment newAssessment)
 	{
-		var newPage = new CreateAssessmentPage(CurrentCourse.Id);
+		var newPage = new CreateAssessmentPage(CurrentCourse.Id, newAssessment.Type, newAssessment);
 		newPage.OnSave = async (newAssessment) =>
 		{
 			await _databaseService.SaveAssessmentAsync(newAssessment);
@@ -56,4 +69,51 @@ public partial class CourseDetailsPage : ContentPage
 		};
 		await Navigation.PushAsync(newPage);
 	}
+
+	async void AddObjectiveClicked(object sender, EventArgs e)
+	{
+		var newAssessment = new Assessment
+		{
+			CourseId = CurrentCourse.Id,
+			Name = "Objective Assessment",
+			DueDate = DateTime.Today,
+			Type = "Objective",
+			ReminderEnabled = false,
+			Notes = ""
+		};
+        await AddAssessment(newAssessment);
+    }
+
+	async void AddPerformanceClicked(object sender, EventArgs e)
+	{
+		var newAssessment = new Assessment
+		{
+			CourseId = CurrentCourse.Id,
+			Name = "Performance Assessment",
+			DueDate = DateTime.Today,
+			Type = "Performance",
+			ReminderEnabled = false,
+			Notes = ""
+		};
+		await AddAssessment(newAssessment);
+    }
+
+    async void AssessmentTapped(object sender, TappedEventArgs e)
+	{
+		var frame = sender as Frame;
+		var assessment = frame?.BindingContext as Assessment;
+		if (assessment == null) return;
+		var editPage = new CreateAssessmentPage(CurrentCourse.Id, assessment.Type, assessment);
+		editPage.OnSave = async (updatedAssessment) =>
+		{
+			await _databaseService.SaveAssessmentAsync(updatedAssessment);
+			LoadAssessments();
+		};
+		editPage.OnDelete = async (assessmentToDelete) =>
+		{
+			await _databaseService.DeleteAssessmentAsync(assessmentToDelete);
+			LoadAssessments();
+		};
+		await Navigation.PushAsync(editPage);
+    }
 }

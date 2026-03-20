@@ -9,7 +9,7 @@
         <Grid Padding="15"
               RowSpacing="12"
               ColumnDefinitions="*"
-              RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+              RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
               >
 
             <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
@@ -61,6 +61,12 @@
                                Margin="0,5"
                                >
 
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="AssessmentTapped"
+                                                      NumberOfTapsRequired="1"
+                                                      />
+                            </Frame.GestureRecognizers>
+
                             <Grid RowDefinitions="Auto,Auto"
                                   ColumnDefinitions="*,*"
                                   >
@@ -73,7 +79,7 @@
 
                                 <Label Grid.Row="1"
                                        Grid.Column="0"
-                                       Text="{Binding DueDate, StringFormat='Start: {0:d}'}"
+                                       Text="{Binding DueDate, StringFormat='Due: {0:d}'}"
                                        />
 
                                 <Label Grid.Row="1"
@@ -90,22 +96,29 @@
 
             </CollectionView>
 
-            <Button Text="Add Assessment"
+            <Button Text="Add Objective Assessment"
                     Grid.Row="5"
                     HorizontalOptions="Center"
-                    Clicked="AddAssessmentClicked"
+                    Clicked="AddObjectiveClicked"
+                    IsVisible="{Binding CanAddObjective}"
+                    />
+            <Button Text="Add Performance Assessment"
+                    Grid.Row="6"
+                    HorizontalOptions="Center"
+                    Clicked="AddPerformanceClicked"
+                    IsVisible="{Binding CanAddPerformance}"
                     />
 
             <Label Text="Notes:"
-                   Grid.Row="6"
+                   Grid.Row="7"
                    />
 
-            <Editor Grid.Row="7"
+            <Editor Grid.Row="8"
                     HeightRequest="120"
                     Text="{Binding CurrentCourse.Notes, Mode=TwoWay}"
                     />
 
-            <Label Grid.Row="8"
+            <Label Grid.Row="9"
                    HorizontalOptions="Center"
                    >
                 <Label.FormattedText>

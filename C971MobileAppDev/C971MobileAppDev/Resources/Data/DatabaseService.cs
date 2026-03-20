@@ -21,6 +21,19 @@ namespace C971MobileAppDev.Resources.Data
             await _database.CreateTableAsync<Term>();
             await _database.CreateTableAsync<Course>();
             await _database.CreateTableAsync<Assessment>();
+
+            // At least one term must exist for functionality.
+            var termCount = await _database.Table<Term>().CountAsync();
+            if (termCount == 0)
+            {
+                var defaultTerm = new Term
+                {
+                    Name = "Default Term",
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddMonths(6)
+                };
+                await _database.InsertAsync(defaultTerm);
+            }
         }
 
         public async Task<List<Term>> GetTermsAsync()
@@ -83,6 +96,12 @@ namespace C971MobileAppDev.Resources.Data
                 await _database.UpdateAsync(assessment);
             else
                 await _database.InsertAsync(assessment);
+        }
+
+        public async Task DeleteAssessmentAsync(Assessment assessment)
+        {
+            await Init();
+            await _database.DeleteAsync(assessment);
         }
     }
 }

@@ -79,6 +79,11 @@ namespace C971MobileAppDev
         async Task DeleteTerm(Term deleteTerm)
         {
             if (deleteTerm == null) return;
+            if (Terms.Count <= 1)
+            {
+                await DisplayAlert("Error", "At least one term must exist.", "OK");
+                return;
+            }
             if (Courses.Count > 0)
             {
                 await DisplayAlert("Error", "Please delete all courses in this term before deleting the term.", "OK");

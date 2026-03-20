@@ -16,5 +16,7 @@ namespace C971MobileAppDev.Resources.Models
         public DateTime DueDate { get; set; }
         public string Type { get; set; }
         public bool ReminderEnabled { get; set; }
+        public string Notes { get; set; }
+
     }
 }

@@ -55,7 +55,7 @@
                    Grid.Column="1"
                    VerticalOptions="Center"
                    />
-            <CheckBox IsChecked="{Binding CurrentCourse.StartEndReminders, Mode=TwoWay}"
+            <Switch IsToggled="{Binding CurrentCourse.NotificationsEnabled, Mode=TwoWay}"
                       Grid.Row="4"
                       Grid.Column="2"
                       VerticalOptions="End"
