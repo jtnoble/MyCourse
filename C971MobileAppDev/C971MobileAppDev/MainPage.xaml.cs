@@ -208,7 +208,7 @@ namespace C971MobileAppDev
                 Status = "Planned",
                 InstructorName = "Anika Patel",
                 InstructorEmail = "anika.patel@strimeuniversity.edu",
-                InstructorPhone = "555-123-4567"
+                InstructorPhone = "5551234567"
             };
             await _databaseService.SaveCourseAsync(course);
             await LoadCourses();

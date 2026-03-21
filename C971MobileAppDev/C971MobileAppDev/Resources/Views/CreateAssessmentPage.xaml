@@ -12,11 +12,11 @@
               RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
               >
             
-            <Label Text="Assessment Name"
+            <Label Text="Assessment Name:"
                    Grid.Row="0"
                    Grid.Column="0"
                    />
-            <Entry Placeholder="Assessment Name:" 
+            <Entry Placeholder="Assessment Name" 
                    Text="{Binding CurrentAssessment.Name}"
                    Grid.Row="0"
                    Grid.Column="1"
