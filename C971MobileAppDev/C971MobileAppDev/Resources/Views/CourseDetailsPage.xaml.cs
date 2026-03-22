@@ -1,6 +1,8 @@
 using C971MobileAppDev.Resources.Models;
 using C971MobileAppDev.Resources.Data;
 using System.Collections.ObjectModel;
+using C971MobileAppDev.Resources.Services;
+using System.Diagnostics;
 
 namespace C971MobileAppDev.Resources.Views;
 
@@ -48,7 +50,27 @@ public partial class CourseDetailsPage : ContentPage
 		{
 			await _databaseService.SaveCourseAsync(updatedCourse);
 			CurrentCourse = updatedCourse;
-			OnPropertyChanged(nameof(CurrentCourse));
+			if (CurrentCourse.NotificationsEnabled)
+			{
+				Notify.CreateNotification(
+					CurrentCourse.Id * 10 + 1,
+					"Course Starting",
+					$"{CurrentCourse.ClassName} starting today!",
+					CurrentCourse.StartDate
+					);
+				Notify.CreateNotification(
+					CurrentCourse.Id * 10 + 2,
+					"Course Ending",
+					$"{CurrentCourse.ClassName} ending today!",
+					DateTime.Now.AddSeconds(15)
+					);
+            }
+			else if (!CurrentCourse.NotificationsEnabled)
+			{
+                Notify.DeleteNotification(CurrentCourse.Id * 10 + 1);
+                Notify.DeleteNotification(CurrentCourse.Id * 10 + 2);
+            }
+				OnPropertyChanged(nameof(CurrentCourse));
 			LoadAssessments();
 		};
 		editPage.OnDelete = async (courseToDelete) =>
@@ -64,6 +86,16 @@ public partial class CourseDetailsPage : ContentPage
 		var newPage = new CreateAssessmentPage(CurrentCourse.Id, newAssessment.Type, newAssessment);
 		newPage.OnSave = async (newAssessment) =>
 		{
+            int id = newAssessment.Type.Equals("Performance") ? CurrentCourse.Id * 10 + 3 : CurrentCourse.Id * 10 + 4;
+            if (newAssessment.ReminderEnabled)
+			{
+                Notify.CreateNotification(
+					id,
+					"Assessment Due",
+					$"{newAssessment.Name} due today!",
+					newAssessment.DueDate
+					);
+			}
 			await _databaseService.SaveAssessmentAsync(newAssessment);
 			LoadAssessments();
 		};
@@ -106,12 +138,28 @@ public partial class CourseDetailsPage : ContentPage
 		var editPage = new CreateAssessmentPage(CurrentCourse.Id, assessment.Type, assessment);
 		editPage.OnSave = async (updatedAssessment) =>
 		{
-			await _databaseService.SaveAssessmentAsync(updatedAssessment);
+            int id = updatedAssessment.Type.Equals("Performance") ? CurrentCourse.Id * 10 + 3 : CurrentCourse.Id * 10 + 4;
+            if (updatedAssessment.ReminderEnabled)
+            {
+                Notify.CreateNotification(
+                    id,
+                    "Assessment Due",
+                    $"{updatedAssessment.Name} due today!",
+                    updatedAssessment.DueDate
+                    );
+            }
+            else if (!updatedAssessment.ReminderEnabled)
+			{
+                Notify.DeleteNotification(id);
+            }
+            await _databaseService.SaveAssessmentAsync(updatedAssessment);
 			LoadAssessments();
 		};
 		editPage.OnDelete = async (assessmentToDelete) =>
 		{
-			await _databaseService.DeleteAssessmentAsync(assessmentToDelete);
+            int id = assessmentToDelete.Type.Equals("Performance") ? CurrentCourse.Id * 10 + 3 : CurrentCourse.Id * 10 + 4;
+            Notify.DeleteNotification(id);
+            await _databaseService.DeleteAssessmentAsync(assessmentToDelete);
 			LoadAssessments();
 		};
 		await Navigation.PushAsync(editPage);
