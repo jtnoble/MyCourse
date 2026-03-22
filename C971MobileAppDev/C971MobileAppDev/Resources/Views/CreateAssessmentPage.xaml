@@ -50,10 +50,17 @@
                     HeightRequest="200"
                     />
 
+            <Button Text="Share Notes"
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    Clicked="ShareNotesClicked"
+                    />
+
             <Button Text="Save"
                     HorizontalOptions="Fill"
                     Clicked="SaveAssessmentClicked"
-                    Grid.Row="4"
+                    Grid.Row="5"
                     Grid.Column="1"
                     Grid.ColumnSpan="2"
                     />
@@ -61,7 +68,7 @@
                     HorizontalOptions="Fill"
                     Clicked="DeleteAssessmentClicked"
                     IsVisible="{Binding DeleteVisible}"
-                    Grid.Row="5"
+                    Grid.Row="6"
                     Grid.Column="1"
                     Grid.ColumnSpan="2"
                     />

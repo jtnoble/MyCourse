@@ -9,7 +9,7 @@
         <Grid Padding="15"
               RowSpacing="12"
               ColumnDefinitions="*"
-              RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+              RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
               >
 
             <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
@@ -112,13 +112,20 @@
             <Label Text="Notes:"
                    Grid.Row="7"
                    />
+            
 
-            <Editor Grid.Row="8"
-                    HeightRequest="120"
-                    Text="{Binding CurrentCourse.Notes, Mode=TwoWay}"
-                    />
+            <Label Grid.Row="8"
+                   HeightRequest="120"
+                   Text="{Binding CurrentCourse.Notes, Mode=TwoWay}"
+                   LineBreakMode="WordWrap"
+                   />
+            <Button Text="Share Notes"
+                Grid.Row="9"
+                WidthRequest="120"
+                Clicked="ShareNotesClicked"
+                />
 
-            <Label Grid.Row="9"
+            <Label Grid.Row="10"
                    HorizontalOptions="Center"
                    >
                 <Label.FormattedText>

@@ -62,7 +62,7 @@ public partial class CourseDetailsPage : ContentPage
 					CurrentCourse.Id * 10 + 2,
 					"Course Ending",
 					$"{CurrentCourse.ClassName} ending today!",
-					DateTime.Now.AddSeconds(15)
+					CurrentCourse.EndDate
 					);
             }
 			else if (!CurrentCourse.NotificationsEnabled)
@@ -163,5 +163,20 @@ public partial class CourseDetailsPage : ContentPage
 			LoadAssessments();
 		};
 		await Navigation.PushAsync(editPage);
+    }
+
+    private async void ShareNotesClicked(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(CurrentCourse.Notes))
+        {
+            await DisplayAlert("No Notes", "No notes to share. Add notes before sharing.", "OK");
+            return;
+        }
+
+        await Share.RequestAsync(new ShareTextRequest
+        {
+            Text = CurrentCourse.Notes,
+            Title = $"{CurrentCourse.ClassName} notes."
+        });
     }
 }

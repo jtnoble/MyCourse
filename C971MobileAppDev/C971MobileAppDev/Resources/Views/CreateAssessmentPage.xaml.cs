@@ -54,4 +54,19 @@ public partial class CreateAssessmentPage : ContentPage
         OnDelete?.Invoke(CurrentAssessment);
         await Navigation.PopAsync();
     }
+
+    private async void ShareNotesClicked(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(CurrentAssessment.Notes))
+        {
+            await DisplayAlert("No Notes", "No notes to share. Add notes before sharing.", "OK");
+            return;
+        }
+
+        await Share.RequestAsync(new ShareTextRequest
+        {
+            Text = CurrentAssessment.Notes,
+            Title = $"{CurrentAssessment.Name} notes."
+        });
+    }
 }
