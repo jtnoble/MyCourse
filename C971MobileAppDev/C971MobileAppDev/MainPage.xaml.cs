@@ -181,5 +181,60 @@ namespace C971MobileAppDev
             var coursePage = new CourseDetailsPage(course);
             await Navigation.PushAsync(coursePage);
         }
+
+        // Debug for creating example data
+        async void CreateExampleData(object sender, EventArgs e)
+        {
+            // Add term
+            Term term = new Term
+            {
+                Name = "Example Term",
+                StartDate = DateTime.Today,
+                EndDate = DateTime.Today.AddMonths(6)
+            };
+            await _databaseService.SaveTermAsync(term);
+            await LoadTerms();
+
+            _currentTermIndex = Terms.Count - 1;
+            UpdateTermUI();
+
+            // Add course
+            Course course = new Course
+            {
+                TermId = term.Id,
+                ClassName = "Example Course",
+                StartDate = DateTime.Today,
+                EndDate = DateTime.Today.AddMonths(3),
+                Status = "Planned",
+                InstructorName = "Anika Patel",
+                InstructorEmail = "anika.patel@strimeuniversity.edu",
+                InstructorPhone = "555-123-4567"
+            };
+            await _databaseService.SaveCourseAsync(course);
+            await LoadCourses();
+
+            // Add assessments
+            Assessment a1 = new Assessment
+            {
+                CourseId = course.Id,
+                Name = "Ex. PA",
+                DueDate = DateTime.Today.AddDays(7),
+                Type = "Performance",
+                ReminderEnabled = false,
+                Notes = "Example notes"
+            };
+            Assessment a2 = new Assessment
+            {
+                CourseId = course.Id,
+                Name = "Ex. OA",
+                DueDate = DateTime.Today.AddDays(14),
+                Type = "Objective",
+                ReminderEnabled = false,
+                Notes = "Example notes"
+            };
+            await _databaseService.SaveAssessmentAsync(a1);
+            await _databaseService.SaveAssessmentAsync(a2);
+
+        }
     }
 }

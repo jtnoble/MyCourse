@@ -112,13 +112,13 @@
             <Label Text="Notes:"
                    Grid.Row="7"
                    />
-            
 
-            <Label Grid.Row="8"
-                   HeightRequest="120"
-                   Text="{Binding CurrentCourse.Notes, Mode=TwoWay}"
-                   LineBreakMode="WordWrap"
-                   />
+            <ScrollView Grid.Row="8"
+                        HeightRequest="120">
+                <Label Text="{Binding CurrentCourse.Notes, Mode=TwoWay}"
+                       LineBreakMode="WordWrap"
+                       />
+            </ScrollView>
             <Button Text="Share Notes"
                 Grid.Row="9"
                 WidthRequest="120"
