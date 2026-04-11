@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="C971MobileAppDev.Resources.Views.CreateAssessmentPage"
+             Title="{Binding TitleText}">
+    
+    <ScrollView>
+
+        <Grid Padding="15"
+              RowSpacing="12"
+              ColumnDefinitions="*,*,*,*"
+              RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+              >
+            
+            <Label Text="Assessment Name:"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   />
+            <Entry Placeholder="Assessment Name" 
+                   Text="{Binding CurrentAssessment.Name}"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="3"
+                   />
+
+            <Label Text="Due Date:"
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   />
+            <DatePicker Date="{Binding CurrentAssessment.DueDate}"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="3"
+                        />
+
+            <Label Text="Reminders?" 
+                   Grid.Row="2"
+                   Grid.Column="1"
+                   />
+            <Switch IsToggled="{Binding CurrentAssessment.ReminderEnabled, Mode=TwoWay}"
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    />
+
+            <Editor Placeholder="Notes"
+                    Text="{Binding CurrentAssessment.Notes}"
+                    AutoSize="TextChanges"
+                    Grid.Row="3"
+                    Grid.ColumnSpan="4"
+                    HeightRequest="200"
+                    />
+
+            <Button Text="Share Notes"
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    Clicked="ShareNotesClicked"
+                    />
+
+            <Button Text="Save"
+                    HorizontalOptions="Fill"
+                    Clicked="SaveAssessmentClicked"
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    />
+            <Button Text="Delete"
+                    HorizontalOptions="Fill"
+                    Clicked="DeleteAssessmentClicked"
+                    IsVisible="{Binding DeleteVisible}"
+                    Grid.Row="6"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    />
+
+        </Grid>
+        
+    </ScrollView>
+    
+</ContentPage>

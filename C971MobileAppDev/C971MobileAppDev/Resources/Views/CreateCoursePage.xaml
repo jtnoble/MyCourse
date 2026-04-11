@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="C971MobileAppDev.Resources.Views.CreateCoursePage"
+             Title="{Binding TitleText}">
+    <ScrollView>
+
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+              ColumnDefinitions="*, *, *, *"
+              ColumnSpacing="10"
+              RowSpacing="10"
+              Padding="15"
+              >
+
+            <Label Text="Course Name:"
+                   TextColor="Black"
+                   BackgroundColor="Transparent"
+                   Grid.Row="0"
+                   Grid.ColumnSpan="2"
+                   />
+            <Entry Placeholder="Course Name"
+                   Text="{Binding CurrentCourse.ClassName, Mode=TwoWay}"
+                   Grid.Row="1"
+                   Grid.ColumnSpan="4"
+                   />
+
+            <Label Text="Start Date:"
+                   TextColor="Black"
+                   BackgroundColor="Transparent"
+                   Grid.Row="2"
+                   Grid.Column="1"
+                   HorizontalOptions="Center"
+                   />
+            <Label Text="End Date:"
+                   TextColor="Black"
+                   BackgroundColor="Transparent"
+                   Grid.Row="2"
+                   Grid.Column="2"
+                   HorizontalOptions="Center"
+                   />
+
+            <DatePicker Date="{Binding CurrentCourse.StartDate, Mode=TwoWay}"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        HorizontalOptions="Fill"
+                        />
+            <DatePicker Date="{Binding CurrentCourse.EndDate, Mode=TwoWay}"
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        HorizontalOptions="Fill"
+                        />
+
+            <Label Text="Start/End Reminders?"
+                   Grid.Row="4"
+                   Grid.Column="1"
+                   VerticalOptions="Center"
+                   />
+            <Switch IsToggled="{Binding CurrentCourse.NotificationsEnabled, Mode=TwoWay}"
+                      Grid.Row="4"
+                      Grid.Column="2"
+                      VerticalOptions="End"
+                      />
+            <Label Text="Status:"
+                   Grid.Row="5"
+                   Grid.Column="0"
+                   />
+            <Picker Grid.Row="5"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="3"
+                    SelectedItem="{Binding CurrentCourse.Status, Mode=TwoWay}">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Planned</x:String>
+                        <x:String>In Progress</x:String>
+                        <x:String>Complete</x:String>
+                        <x:String>Dropped</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label Text="Instructor Information:"
+                   FontAttributes="Bold"
+                   Grid.Row="6"
+                   Grid.ColumnSpan="2"
+                   />
+            <Label Text="Name:"
+                   TextColor="Black"
+                   BackgroundColor="Transparent"
+                   Grid.Row="7"
+                   Grid.Column="0"
+                   />
+            <Entry Placeholder="Instructor Name"
+                   Text="{Binding CurrentCourse.InstructorName, Mode=TwoWay}"
+                   Grid.Row="7"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="3"
+                   />
+            <Label Text="Phone:"
+                   TextColor="Black"
+                   BackgroundColor="Transparent"
+                   Grid.Row="8"
+                   Grid.Column="0"
+                   />
+            <Entry Placeholder="Instructor Phone"
+                   Text="{Binding CurrentCourse.InstructorPhone, Mode=TwoWay}"
+                   Keyboard="Telephone"
+                   Grid.Row="8"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="3"
+                   />
+            <Label Text="Email:"
+                   TextColor="Black"
+                   BackgroundColor="Transparent"
+                   Grid.Row="9"
+                   Grid.Column="0"
+                   />
+            <Entry Placeholder="Instructor Email"
+                   Text="{Binding CurrentCourse.InstructorEmail, Mode=TwoWay}"
+                   Keyboard="Email"
+                   Grid.Row="9"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="3"
+                   />
+
+            <Label Text="Notes:"
+                   Grid.Row="10"
+                   />
+            <Editor Placeholder="Course Notes"
+                    Text="{Binding CurrentCourse.Notes, Mode=TwoWay}"
+                    Grid.Row="14"
+                    Grid.ColumnSpan="4"
+                    HeightRequest="100"
+                    />
+
+            <Button Text="{Binding SaveText}"
+                    Grid.Row="15"
+                    Grid.ColumnSpan="4"
+                    HorizontalOptions="Center"
+                    WidthRequest="200"
+                    Clicked="CreateCourseClicked"
+                    />
+
+            <Button Text="Delete"
+                    TextColor="White"
+                    BackgroundColor="MediumVioletRed"
+                    Grid.Row="16"
+                    Grid.ColumnSpan="4"
+                    HorizontalOptions="Center"
+                    WidthRequest="200"
+                    IsVisible="{Binding DeleteVisible}"
+                    Clicked="DeleteCourseClicked"
+                    />
+        </Grid>
+
+    </ScrollView>
+</ContentPage>
