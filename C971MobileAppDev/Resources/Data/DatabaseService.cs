@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using SQLite;
 using C971MobileAppDev.Resources.Models;
 using System.IO;
-using Microsoft.Maui.Storage;
 
 namespace C971MobileAppDev.Resources.Data
 {
@@ -56,6 +55,7 @@ namespace C971MobileAppDev.Resources.Data
         public async Task SaveCourseAsync(Course course)
         {
             await Init();
+            // set timestamps
             if (course.Id == 0)
             {
                 course.CreatedAt = DateTime.UtcNow;

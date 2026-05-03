@@ -1,14 +1,9 @@
-﻿using C971MobileAppDev.Resources.Models;
+using C971MobileAppDev.Resources.Data;
+using C971MobileAppDev.Resources.Models;
 using C971MobileAppDev.Resources.Views;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Linq;
-using System.Collections.Generic;
-using Microsoft.Maui.ApplicationModel;
-using C971MobileAppDev.Resources.Data;
-using System;
-using C971MobileAppDev.Resources.Services;
 
 namespace C971MobileAppDev
 {
@@ -164,18 +159,17 @@ namespace C971MobileAppDev
             if (CurrentTerm == null) return;
 
             var courses = await _databaseService.GetCoursesAsync(CurrentTerm.Id);
-            _allCourses = courses ?? new List<Course>();
+            _allCourses = courses;
             Courses.Clear();
-            foreach (var course in _allCourses)
+            foreach (var course in courses)
             {
                 Courses.Add(course);
             }
 
             OnPropertyChanged(nameof(CanAddCourse));
-
-            ApplySearch(SearchQuery);
         }
 
+        // Apply search to the current _allCourses set
         void ApplySearch(string query)
         {
             if (string.IsNullOrWhiteSpace(query))
@@ -187,9 +181,9 @@ namespace C971MobileAppDev
 
             var q = query.Trim();
             var filtered = _allCourses.Where(c =>
-                (!string.IsNullOrEmpty(c.ClassName) && c.ClassName.Contains(q, System.StringComparison.OrdinalIgnoreCase)) ||
-                (!string.IsNullOrEmpty(c.InstructorName) && c.InstructorName.Contains(q, System.StringComparison.OrdinalIgnoreCase)) ||
-                (!string.IsNullOrEmpty(c.InstructorEmail) && c.InstructorEmail.Contains(q, System.StringComparison.OrdinalIgnoreCase))
+                (!string.IsNullOrEmpty(c.ClassName) && c.ClassName.Contains(q, StringComparison.OrdinalIgnoreCase)) ||
+                (!string.IsNullOrEmpty(c.InstructorName) && c.InstructorName.Contains(q, StringComparison.OrdinalIgnoreCase)) ||
+                (!string.IsNullOrEmpty(c.InstructorEmail) && c.InstructorEmail.Contains(q, StringComparison.OrdinalIgnoreCase))
             ).ToList();
 
             Courses.Clear();
@@ -229,6 +223,7 @@ namespace C971MobileAppDev
             await Navigation.PushAsync(coursePage);
         }
 
+        // Export report for current term
         private async void ExportReportClicked(object sender, EventArgs e)
         {
             if (CurrentTerm == null)
@@ -241,7 +236,11 @@ namespace C971MobileAppDev
             try
             {
                 var filePath = await reportService.GenerateTermCsvReport(CurrentTerm, _databaseService);
-                await Navigation.PushAsync(new TermReportPage(filePath, CurrentTerm.Name));
+                await Share.RequestAsync(new ShareFileRequest
+                {
+                    Title = $"Term Report - {CurrentTerm.Name}",
+                    File = new ShareFile(filePath)
+                });
             }
             catch (Exception ex)
             {

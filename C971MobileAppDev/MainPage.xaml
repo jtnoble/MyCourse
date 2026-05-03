@@ -1,7 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:C971MobileAppDev.Resources.Views.Controls"
              x:Class="C971MobileAppDev.MainPage"
              x:Name="ThisPage"
              >
@@ -18,7 +17,7 @@
         </Grid>
     </NavigationPage.TitleView>
 
-    <Grid RowDefinitions="Auto, Auto, Auto, *"
+    <Grid RowDefinitions="Auto, Auto, *"
           Padding="10"
           RowSpacing="10">
 
@@ -50,12 +49,8 @@
 
         </Grid>
 
-        <controls:DateRangeProgressBar Grid.Row="1"
-                                       StartDate="{Binding CurrentTerm.StartDate}"
-                                       EndDate="{Binding CurrentTerm.EndDate}"
-                                       Margin="0,4,0,0"/>
-
-        <Grid Grid.Row="2" ColumnDefinitions="*, Auto" ColumnSpacing="8">
+        <!-- Search and Report row -->
+        <Grid Grid.Row="1" ColumnDefinitions="*, Auto" ColumnSpacing="8">
             <SearchBar Placeholder="Search classes or instructors..."
                        Text="{Binding SearchQuery}"
                        SearchCommand="{Binding SearchCommand}"
@@ -66,19 +61,19 @@
                     Clicked="ExportReportClicked" />
         </Grid>
 
-        <CollectionView Grid.Row="3"
+        <CollectionView Grid.Row="2"
                         ItemsSource="{Binding Courses}"
                         SelectionMode="None"
                         >
             <CollectionView.Footer>
                 <VerticalStackLayout Padding="10">
-                    <Button Text="Add Class"
+                <Button Text="Add Class"
                         HeightRequest="50"
                         HorizontalOptions="Fill"
                         Clicked="AddCourseClicked"
                         IsEnabled="{Binding CanAddCourse}"
                         />
-                    <Button Text="Create Example Data"
+                <Button Text="Create Example Data"
                         Margin="10"
                         HeightRequest="50"
                         HorizontalOptions="Fill"
@@ -116,9 +111,6 @@
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-
-                            <controls:DateRangeProgressBar StartDate="{Binding StartDate}"
-                                                           EndDate="{Binding EndDate}" />
 
                             <Button Text="View Class"
                                     HorizontalOptions="Center"

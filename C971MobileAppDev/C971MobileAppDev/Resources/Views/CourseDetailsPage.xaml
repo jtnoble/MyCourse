@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:C971MobileAppDev.Resources.Views.Controls"
              x:Class="C971MobileAppDev.Resources.Views.CourseDetailsPage"
              Title="Course Details">
 
@@ -9,7 +10,7 @@
         <Grid Padding="15"
               RowSpacing="12"
               ColumnDefinitions="*"
-              RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+              RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
               >
 
             <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
@@ -32,6 +33,7 @@
                    HorizontalOptions="Center"
                    />
 
+            <!-- Date display -->
             <Label Grid.Row="2"
                    HorizontalOptions="Center"
                    >
@@ -44,12 +46,18 @@
                 </Label.FormattedText>
             </Label>
 
+            <!-- Progress bar moved to its own row (Grid.Row=3) to avoid overlap -->
+            <controls:DateRangeProgressBar Grid.Row="3"
+                                           StartDate="{Binding CurrentCourse.StartDate}"
+                                           EndDate="{Binding CurrentCourse.EndDate}"
+                                           Margin="0,6,0,0"/>
+
             <Label Text="Assessments:"
                    FontAttributes="Bold"
-                   Grid.Row="3"
+                   Grid.Row="4"
                    />
 
-            <CollectionView Grid.Row="4"
+            <CollectionView Grid.Row="5"
                             ItemsSource="{Binding Assessments}"
                             >
 
@@ -97,35 +105,35 @@
             </CollectionView>
 
             <Button Text="Add Objective Assessment"
-                    Grid.Row="5"
+                    Grid.Row="6"
                     HorizontalOptions="Center"
                     Clicked="AddObjectiveClicked"
                     IsVisible="{Binding CanAddObjective}"
                     />
             <Button Text="Add Performance Assessment"
-                    Grid.Row="6"
+                    Grid.Row="7"
                     HorizontalOptions="Center"
                     Clicked="AddPerformanceClicked"
                     IsVisible="{Binding CanAddPerformance}"
                     />
 
             <Label Text="Notes:"
-                   Grid.Row="7"
+                   Grid.Row="8"
                    />
 
-            <ScrollView Grid.Row="8"
+            <ScrollView Grid.Row="9"
                         HeightRequest="120">
                 <Label Text="{Binding CurrentCourse.Notes, Mode=TwoWay}"
                        LineBreakMode="WordWrap"
                        />
             </ScrollView>
             <Button Text="Share Notes"
-                Grid.Row="9"
+                Grid.Row="10"
                 WidthRequest="120"
                 Clicked="ShareNotesClicked"
                 />
 
-            <Label Grid.Row="10"
+            <Label Grid.Row="11"
                    HorizontalOptions="Center"
                    >
                 <Label.FormattedText>
