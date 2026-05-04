@@ -78,12 +78,14 @@
                         Clicked="AddCourseClicked"
                         IsEnabled="{Binding CanAddCourse}"
                         />
+                    <!--  EXAMPLE DATA TESTING, LEAVE FOR DEBUG REASONS ONLY                  
                     <Button Text="Create Example Data"
                         Margin="10"
                         HeightRequest="50"
                         HorizontalOptions="Fill"
                         Clicked="CreateExampleData"
                         />
+                    -->
                 </VerticalStackLayout>
 
             </CollectionView.Footer>

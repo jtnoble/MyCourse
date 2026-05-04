@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using SQLite;
 using C971MobileAppDev.Resources.Models;
 using System.IO;
-using Microsoft.Maui.Storage;
 
 namespace C971MobileAppDev.Resources.Data
 {
@@ -18,7 +17,7 @@ namespace C971MobileAppDev.Resources.Data
         {
             if (_database != null)
                 return;
-            var databasePath = Path.Combine(FileSystem.AppDataDirectory, "C971MobileAppDev.db");
+            var databasePath = Path.Combine(Path.GetTempPath(), "C971MobileAppDev.db");
             _database = new SQLiteAsyncConnection(databasePath);
             await _database.CreateTableAsync<Term>();
             await _database.CreateTableAsync<Course>();

@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using C971MobileAppDev.Resources.Data;
 using C971MobileAppDev.Resources.Models;
-using Microsoft.Maui.Storage;
 
 namespace C971MobileAppDev.Resources.Services
 {
@@ -138,7 +137,7 @@ namespace C971MobileAppDev.Resources.Services
             var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
             var safeTermName = string.IsNullOrWhiteSpace(term.Name) ? $"term_{term.Id}" : MakeSafeFileName(term.Name);
             var fileName = $"TermReport_{safeTermName}_{term.Id}_{timestamp}.csv";
-            var path = Path.Combine(FileSystem.AppDataDirectory, fileName);
+            var path = Path.Combine(Path.GetTempPath(), fileName);
 
             await File.WriteAllTextAsync(path, sb.ToString()).ConfigureAwait(false);
             return path;
