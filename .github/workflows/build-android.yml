@@ -23,19 +23,19 @@ jobs:
         run: dotnet workload install maui
 
       - name: Restore
-        run: dotnet restore main/MyCourse/MyCourse/MyCourse.csproj
+        run: dotnet restore MyCourse/MyCourse/MyCourse.csproj
 
       - name: Build
         run: >
           dotnet build
-          main/MyCourse/MyCourse/MyCourse.csproj
+          MyCourse/MyCourse/MyCourse.csproj
           -c Release
           --no-restore
 
       - name: Publish Android APK
         run: >
           dotnet publish
-          main/MyCourse/MyCourse/MyCourse.csproj
+          MyCourse/MyCourse/MyCourse.csproj
           -f net8.0-android
           -c Release
           -p:AndroidPackageFormat=apk
