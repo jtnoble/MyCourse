@@ -33,7 +33,6 @@
                    HorizontalOptions="Center"
                    />
 
-            <!-- Date display -->
             <Label Grid.Row="2"
                    HorizontalOptions="Center"
                    >
@@ -46,7 +45,6 @@
                 </Label.FormattedText>
             </Label>
 
-            <!-- Progress bar moved to its own row (Grid.Row=3) to avoid overlap -->
             <controls:DateRangeProgressBar Grid.Row="3"
                                            StartDate="{Binding CurrentCourse.StartDate}"
                                            EndDate="{Binding CurrentCourse.EndDate}"
