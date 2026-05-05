@@ -1,0 +1,49 @@
+name: Build Android (MAUI)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Install MAUI workload
+        run: dotnet workload install maui
+
+      - name: Restore
+        run: dotnet restore main/C971MobileAppDev/C971MobileAppDev/C971MobileAppDev.csproj
+
+      - name: Build
+        run: >
+          dotnet build
+          main/C971MobileAppDev/C971MobileAppDev/C971MobileAppDev.csproj
+          -c Release
+          --no-restore
+
+      - name: Publish Android APK
+        run: >
+          dotnet publish
+          main/MyCourse/MyCourse/MyCourse.csproj
+          -f net8.0-android
+          -c Release
+          -p:AndroidPackageFormat=apk
+          -p:EmbedAssembliesIntoApk=true
+          -o ./artifacts/android
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: ./artifacts/android/*.apk

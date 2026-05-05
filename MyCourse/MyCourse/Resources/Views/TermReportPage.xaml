@@ -1,0 +1,67 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyCourse.Resources.Views.TermReportPage"
+             Title="Term Report">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Share" Clicked="ShareClicked" Priority="0" Order="Primary"/>
+    </ContentPage.ToolbarItems>
+
+    <Grid Padding="12" RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="TitleLabel"
+               Grid.Row="0"
+               FontSize="20"
+               FontAttributes="Bold"
+               LineBreakMode="TailTruncation"/>
+
+        <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="12">
+            <Label x:Name="DateLabel" FontSize="12" TextColor="Gray"/>
+            <Label x:Name="SummaryLabel" FontSize="12" TextColor="Gray"/>
+        </StackLayout>
+
+        <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="End" Spacing="8">
+            <Button x:Name="ToggleRawButton" Text="Show Raw CSV" Clicked="ToggleRawClicked" />
+        </StackLayout>
+
+        <Frame Grid.Row="3"
+               Padding="8"
+               CornerRadius="8"
+               BorderColor="#DDD">
+            <ScrollView Orientation="Both">
+                <Grid x:Name="ReportGrid" ColumnSpacing="8" RowSpacing="6" />
+            </ScrollView>
+        </Frame>
+
+        <Frame Grid.Row="4"
+               Padding="8"
+               CornerRadius="8"
+               BorderColor="#DDD"
+               IsVisible="False"
+               x:Name="RawFrame"
+               HeightRequest="180">
+            <ScrollView Orientation="Both">
+                <Editor x:Name="CsvText"
+                        IsReadOnly="True"
+                        AutoSize="TextChanges"
+                        FontFamily="Courier New, Courier, monospace"
+                        FontSize="12"
+                        TextColor="Black" />
+            </ScrollView>
+        </Frame>
+
+        <Button Grid.Row="5"
+                Text="Share Report (CSV)"
+                Clicked="ShareClicked"
+                HorizontalOptions="Center"
+                Margin="0,8,0,0"/>
+    </Grid>
+</ContentPage>

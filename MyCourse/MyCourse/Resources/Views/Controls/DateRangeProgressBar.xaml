@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyCourse.Resources.Views.Controls.DateRangeProgressBar"
+             Padding="4">
+    <VerticalStackLayout Spacing="4">
+        <ProgressBar x:Name="progressBar"
+                     HeightRequest="8"
+                     Progress="0"
+                     BackgroundColor="#E6E6E6"
+                     />
+        <Grid>
+            <Label x:Name="statusLabel"
+                   FontSize="12"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   TextColor="Black"/>
+            <Label x:Name="percentLabel"
+                   FontSize="12"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"
+                   TextColor="Black"/>
+        </Grid>
+    </VerticalStackLayout>
+</ContentView>
