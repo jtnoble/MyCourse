@@ -1,4 +1,4 @@
-# C971 Mobile Application Development Using C Sharp
+# MyCourse
 
 ## Description
 A basic mobile-friendly application that allows you to create a school schedule for yourself, including terms, classes, and information about said classes.
@@ -10,7 +10,7 @@ Clone the repository and open the solution in Visual Studio. Upon building, you 
 If downloading this directly to your machine, be sure to keep in mind the 260 character limit in file paths, and maybe put this at a higher level (such as `C:\Users\username\Dev\<this-repo>`).
 
 ## Authors and acknowledgment
-Joseph Noble
+Jtnoble
 
 ## License
 N/A
