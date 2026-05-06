@@ -42,8 +42,26 @@ jobs:
           -p:EmbedAssembliesIntoApk=true
           -o ./artifacts/android
 
-      - name: Upload APK
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: android-apk
           path: ./artifacts/android/*.apk
+
+      - name: Generate version
+        id: version
+        shell: bash
+        run: |
+          VERSION="v$(date -u +'%Y.%-m.%-d.%H.%M')"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create Release and Upload APK
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          name: ${{ steps.version.outputs.version }}
+          files: ./artifacts/android/*.apk
+          draft: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
