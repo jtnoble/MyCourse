@@ -3,7 +3,6 @@ using SQLite;
 
 namespace MyCourseCore.Models
 {
-    // BaseModel demonstrates inheritance and encapsulation of standard fields.
     public abstract class BaseModel
     {
         [PrimaryKey, AutoIncrement]
@@ -24,10 +23,8 @@ namespace MyCourseCore.Models
             set => _updatedAt = value;
         }
 
-        // Polymorphic hook for reporting
         public abstract string[] ToReportRow();
 
-        // Optional header per-type
         public virtual string GetReportHeader() => "Id,CreatedAt,UpdatedAt";
     }
 }
