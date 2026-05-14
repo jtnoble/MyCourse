@@ -9,6 +9,11 @@ When a new change has been made, a new build will be uploaded.
 - Install the APK file that is downloaded.
   - As this is an unofficial means of getting an APK, you may be required to disable some security features on your phone to install this application.
 
+## Website
+As part of the repository, there has been an `index.html` created that provides an easy link to share with a download button that corresponds to the newest release.
+
+https://jtnoble.github.io/MyCourse
+
 ## Running
 A user guide
 - Terms
